@@ -4,12 +4,17 @@ import Image from 'next/image'
 import { client } from '@/sanity/client'
 import { ALL_POSTS_QUERY, ALL_CATEGORIES_QUERY } from '@/sanity/queries'
 import { urlForImage } from '@/sanity/image'
+import SearchInput from '@/components/SearchInput'
+import NewsletterForm from '@/components/NewsletterForm'
 
 export const revalidate = 60 // Revalidate every 60 seconds
 
-export default async function Home() {
+export default async function Home({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const { q } = await searchParams;
+  const search = q || null;
+
   const [posts, categories] = await Promise.all([
-    client.fetch(ALL_POSTS_QUERY),
+    client.fetch(ALL_POSTS_QUERY, { search }),
     client.fetch(ALL_CATEGORIES_QUERY)
   ]);
 
@@ -44,18 +49,7 @@ export default async function Home() {
           </p>
           
           {/* Search Bar */}
-          <div className="max-w-lg mx-auto relative">
-            <input 
-              type="text" 
-              placeholder="Search tax rules, compliance calendars..." 
-              className="w-full pl-5 pr-14 py-4 rounded-xl bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none transition-all duration-200 text-sm shadow-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent"
-            />
-            <button className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 bg-blue-900 hover:bg-blue-800 text-white rounded-lg transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-              </svg>
-            </button>
-          </div>
+          <SearchInput key={search || ''} />
         </div>
       </section>
 
@@ -216,16 +210,7 @@ export default async function Home() {
             </div>
             
             <div className="relative z-10 mt-8 md:mt-0 flex-grow max-w-md">
-              <form className="flex flex-col sm:flex-row gap-3">
-                <input 
-                  type="email" 
-                  placeholder="Your professional email" 
-                  className="flex-grow px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none transition-all text-sm focus:ring-2 focus:ring-blue-700"
-                />
-                <button type="submit" className="px-6 py-3 bg-white hover:bg-gray-100 text-blue-900 font-bold rounded-lg transition-all shadow-lg text-sm uppercase tracking-wider">
-                  Subscribe
-                </button>
-              </form>
+              <NewsletterForm layout="inline" />
               <p className="text-blue-200/50 text-xs mt-3 text-center md:text-left">
                 No spam. Unsubscribe anytime.
               </p>

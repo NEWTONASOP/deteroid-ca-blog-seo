@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Footer() {
-  const mainSiteUrl = 'http://localhost:54020';
+  const mainSiteUrl = 'https://saroracompany.com';
   
   return (
     <footer className="bg-gradient-to-br from-blue-900 to-blue-800 text-white relative overflow-hidden">

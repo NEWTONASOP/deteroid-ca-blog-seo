@@ -112,7 +112,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           ) : (
             <div className="text-center py-20 bg-white rounded-2xl border border-gray-200 shadow-md max-w-2xl mx-auto">
               <h3 className="text-xl font-bold text-gray-900 mb-2">No posts in this category</h3>
-              <p className="text-gray-500 text-sm">We haven't published any articles about {category.title} yet.</p>
+              <p className="text-gray-500 text-sm">We haven&apos;t published any articles about {category.title} yet.</p>
               <Link href="/" className="mt-6 inline-block px-5 py-2.5 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors text-xs font-bold">
                 Return to home page
               </Link>
