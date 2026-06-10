@@ -7,7 +7,7 @@ export const ALL_POSTS_QUERY = groq`*[_type == "post" && defined(slug.current) &
   mainImage,
   publishedAt,
   excerpt,
-  "author": author->{name, image, "slug": slug.current},
+  "author": author->{name, image, slug},
   "categories": categories[]->{title, "slug": slug.current}
 }`
 
@@ -19,7 +19,7 @@ export const POST_BY_SLUG_QUERY = groq`*[_type == "post" && slug.current == $slu
   body,
   publishedAt,
   excerpt,
-  "author": author->{name, image, bio, "slug": slug.current},
+  "author": author->{name, image, bio, slug},
   "categories": categories[]->{title, "slug": slug.current},
   seo
 }`
@@ -31,7 +31,7 @@ export const POSTS_BY_CATEGORY_QUERY = groq`*[_type == "post" && defined(slug.cu
   mainImage,
   publishedAt,
   excerpt,
-  "author": author->{name, image, "slug": slug.current},
+  "author": author->{name, image, slug},
   "categories": categories[]->{title, "slug": slug.current}
 }`
 
@@ -42,7 +42,7 @@ export const POSTS_BY_AUTHOR_QUERY = groq`*[_type == "post" && defined(slug.curr
   mainImage,
   publishedAt,
   excerpt,
-  "author": author->{name, image, bio, "slug": slug.current},
+  "author": author->{name, image, bio, slug},
   "categories": categories[]->{title, "slug": slug.current}
 }`
 
