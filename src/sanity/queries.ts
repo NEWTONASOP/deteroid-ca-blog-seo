@@ -74,6 +74,9 @@ export const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"][0] {
   title,
   description,
   defaultShareImage,
-  noIndexAll
+  noIndexAll,
+  heroTitle,
+  heroTitleHighlight,
+  heroSubtitle
 }`
 

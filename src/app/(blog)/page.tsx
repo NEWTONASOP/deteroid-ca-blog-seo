@@ -2,7 +2,7 @@ import PostCard from '@/components/PostCard'
 import Link from 'next/link'
 import Image from 'next/image'
 import { client } from '@/sanity/client'
-import { ALL_POSTS_QUERY, ALL_CATEGORIES_QUERY } from '@/sanity/queries'
+import { ALL_POSTS_QUERY, ALL_CATEGORIES_QUERY, SITE_SETTINGS_QUERY } from '@/sanity/queries'
 import { urlForImage } from '@/sanity/image'
 import SearchInput from '@/components/SearchInput'
 import NewsletterForm from '@/components/NewsletterForm'
@@ -13,10 +13,15 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
   const { q } = await searchParams;
   const search = q || null;
 
-  const [posts, categories] = await Promise.all([
+  const [posts, categories, siteSettings] = await Promise.all([
     client.fetch(ALL_POSTS_QUERY, { search }),
-    client.fetch(ALL_CATEGORIES_QUERY)
+    client.fetch(ALL_CATEGORIES_QUERY),
+    client.fetch(SITE_SETTINGS_QUERY).catch(() => null)
   ]);
+
+  const heroTitle = siteSettings?.heroTitle || "Expert Financial Insights &";
+  const heroTitleHighlight = siteSettings?.heroTitleHighlight || "Tax Updates";
+  const heroSubtitle = siteSettings?.heroSubtitle || "Stay compliant and make informed business choices with regulatory analyses, GST updates, and tax guidelines curated by the experts at Shalini Arora & Company.";
 
   const featuredPost = posts.length > 0 ? posts[0] : null;
   const recentPosts = posts.length > 1 ? posts.slice(1) : [];
@@ -40,12 +45,12 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
-            Expert Financial Insights &{' '}
-            <span className="text-blue-900">Tax Updates</span>
+            {heroTitle}{' '}
+            <span className="text-blue-900">{heroTitleHighlight}</span>
           </h1>
           <div className="section-divider mx-auto mb-6" />
           <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Stay compliant and make informed business choices with regulatory analyses, GST updates, and tax guidelines curated by the experts at Shalini Arora & Company.
+            {heroSubtitle}
           </p>
           
           {/* Search Bar */}

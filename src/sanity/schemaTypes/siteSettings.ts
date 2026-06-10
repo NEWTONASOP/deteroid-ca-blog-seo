@@ -14,6 +14,28 @@ export const siteSettings = defineType({
       initialValue: 'Shalini Arora & Company',
     }),
     defineField({
+      name: 'heroTitle',
+      title: 'Hero Title (Main)',
+      type: 'string',
+      description: 'The main headline shown in the homepage hero section.',
+      initialValue: 'Expert Financial Insights &',
+    }),
+    defineField({
+      name: 'heroTitleHighlight',
+      title: 'Hero Title (Highlighted)',
+      type: 'string',
+      description: 'The highlighted text shown in blue next to the main headline.',
+      initialValue: 'Tax Updates',
+    }),
+    defineField({
+      name: 'heroSubtitle',
+      title: 'Hero Subtitle',
+      type: 'text',
+      rows: 3,
+      description: 'The paragraph description text shown in the homepage hero section.',
+      initialValue: 'Stay compliant and make informed business choices with regulatory analyses, GST updates, and tax guidelines curated by the experts at Shalini Arora & Company.',
+    }),
+    defineField({
       name: 'title',
       title: 'Default Meta Title (Home Page)',
       type: 'string',
