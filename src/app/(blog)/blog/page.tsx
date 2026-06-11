@@ -184,7 +184,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-gray-100 overflow-hidden relative border border-gray-200">
                         {featuredPost.author?.image ? (
-                          <Image src={urlForImage(featuredPost.author.image)?.width(100).height(100).url() || ''} alt={featuredPost.author.name} fill className="object-cover" />
+                          <Image src={urlForImage(featuredPost.author.image)?.width(100).height(100).url() || ''} alt={featuredPost.author.name} fill sizes="40px" className="object-cover" />
                         ) : (
                           <svg className="w-full h-full text-gray-400 mt-1" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />

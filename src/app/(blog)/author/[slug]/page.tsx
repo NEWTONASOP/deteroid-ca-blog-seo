@@ -103,7 +103,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
           
           <div className="w-24 h-24 rounded-full bg-gray-800 mx-auto flex items-center justify-center text-3xl font-bold text-white mb-6 overflow-hidden relative border-2 border-blue-900 shadow-md">
             {authorImageUrl ? (
-              <Image src={authorImageUrl} alt={author.name} fill className="object-cover" />
+              <Image src={authorImageUrl} alt={author.name} fill sizes="100px" className="object-cover" />
             ) : (
               author.name.charAt(0)
             )}

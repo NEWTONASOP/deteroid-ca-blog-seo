@@ -283,30 +283,43 @@ export default function HomePage() {
 
           {/* Stat Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+
+            {/* 10+ Years Experience — Medal/ribbon */}
             <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-blue-900 flex flex-col items-center">
               <div className="bg-blue-50 p-3 rounded-full mb-3 flex items-center justify-center">
-                <AwardIcon className="h-8 w-8 text-blue-900" />
+                <svg className="h-8 w-8 text-blue-900" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                  <path d="M7.5 8 a4.5 4.5 0 1 0 9 0 a4.5 4.5 0 1 0 -9 0 M9.5 12.3L7 21l5-2.5 5 2.5-2.5-8.7" />
+                </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-1">10+ Years</h3>
               <p className="text-gray-600 text-sm">Experience</p>
             </div>
 
+            {/* 1000+ Happy Clients — User group */}
             <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-blue-900 flex flex-col items-center">
               <div className="bg-blue-50 p-3 rounded-full mb-3 flex items-center justify-center">
-                <UsersIcon className="h-8 w-8 text-blue-900" />
+                <svg className="h-8 w-8 text-blue-900" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                  <path d="M5 7 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M1 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2 M16 3.13a4 4 0 0 1 0 7.75 M22 21v-2a4 4 0 0 0-3-3.87" />
+                </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-1">1000+</h3>
               <p className="text-gray-600 text-sm">Happy Clients</p>
             </div>
 
+            {/* Best CA Firm — Trending up */}
             <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-blue-900 flex flex-col items-center">
               <div className="bg-blue-50 p-3 rounded-full mb-3 flex items-center justify-center">
-                <ShieldCheckIcon className="h-8 w-8 text-blue-900" />
+                <svg className="h-8 w-8 text-blue-900" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                  <path d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6" />
+                </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-1">Best CA Firm</h3>
               <p className="text-gray-600 text-sm">in Noida</p>
             </div>
+
           </div>
+
+
         </div>
       </section>
 

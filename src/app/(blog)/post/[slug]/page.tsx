@@ -177,7 +177,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <div className="flex items-center">
               <div className="w-6.5 h-6.5 rounded-full bg-gray-100 mr-2 overflow-hidden relative flex items-center justify-center border border-gray-200">
                 {authorImageUrl ? (
-                  <Image src={authorImageUrl} alt={post.author?.name || 'Author'} fill className="object-cover" />
+                  <Image src={authorImageUrl} alt={post.author?.name || 'Author'} fill sizes="40px" className="object-cover" />
                 ) : (
                   <span className="font-bold text-gray-500 text-[10px]">{post.author?.name?.charAt(0) || 'A'}</span>
                 )}
@@ -263,7 +263,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 <div className="flex flex-col items-center">
                   <div className="w-16 h-16 rounded-full bg-gray-50 overflow-hidden relative border border-gray-200 shadow-xs mb-3">
                     {authorImageUrl ? (
-                      <Image src={authorImageUrl} alt={post.author.name} fill className="object-cover" />
+                      <Image src={authorImageUrl} alt={post.author.name} fill sizes="100px" className="object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-700 text-lg font-bold">
                         {post.author.name.charAt(0)}
