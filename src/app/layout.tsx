@@ -8,6 +8,10 @@ import { urlForImage } from "@/sanity/image";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
+  'https://blog.shalinaoa.in'
+
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await client.fetch(SITE_SETTINGS_QUERY).catch(() => null);
   
@@ -20,11 +24,15 @@ export async function generateMetadata(): Promise<Metadata> {
     : null;
 
   return {
+    metadataBase: new URL(SITE_URL),
     title: {
       template: `%s | ${siteName}`,
       default: title,
     },
     description,
+    alternates: {
+      canonical: '/',
+    },
     openGraph: {
       title,
       description,

@@ -2,11 +2,18 @@ import PostCard from '@/components/PostCard'
 import Link from 'next/link'
 import Image from 'next/image'
 import { client } from '@/sanity/client'
-import { POSTS_BY_AUTHOR_QUERY, AUTHOR_BY_SLUG_QUERY, SITE_SETTINGS_QUERY } from '@/sanity/queries'
+import { POSTS_BY_AUTHOR_QUERY, AUTHOR_BY_SLUG_QUERY, SITE_SETTINGS_QUERY, SITEMAP_AUTHORS_QUERY } from '@/sanity/queries'
 import { urlForImage } from '@/sanity/image'
 import { PortableText } from '@portabletext/react'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
+
+export async function generateStaticParams() {
+  const authors = await client
+    .fetch<{ slug: string }[]>(SITEMAP_AUTHORS_QUERY)
+    .catch(() => [])
+  return authors.map((a) => ({ slug: a.slug }))
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -44,6 +51,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title,
     description,
     keywords,
+    alternates: {
+      canonical: `/author/${slug}`,
+    },
     openGraph: {
       title: author.seo?.metaTitle || author.name,
       description,

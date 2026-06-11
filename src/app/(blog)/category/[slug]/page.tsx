@@ -1,10 +1,17 @@
 import PostCard from '@/components/PostCard'
 import Link from 'next/link'
 import { client } from '@/sanity/client'
-import { POSTS_BY_CATEGORY_QUERY, CATEGORY_BY_SLUG_QUERY, SITE_SETTINGS_QUERY } from '@/sanity/queries'
+import { POSTS_BY_CATEGORY_QUERY, CATEGORY_BY_SLUG_QUERY, SITE_SETTINGS_QUERY, SITEMAP_CATEGORIES_QUERY } from '@/sanity/queries'
 import { notFound } from 'next/navigation'
 import { urlForImage } from '@/sanity/image'
 import { Metadata } from 'next'
+
+export async function generateStaticParams() {
+  const categories = await client
+    .fetch<{ slug: string }[]>(SITEMAP_CATEGORIES_QUERY)
+    .catch(() => [])
+  return categories.map((c) => ({ slug: c.slug }))
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -37,6 +44,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title,
     description,
     keywords,
+    alternates: {
+      canonical: `/category/${slug}`,
+    },
     openGraph: {
       title: category.seo?.metaTitle || category.title,
       description,

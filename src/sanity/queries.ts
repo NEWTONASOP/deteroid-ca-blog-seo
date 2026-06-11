@@ -80,3 +80,20 @@ export const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"][0] {
   heroSubtitle
 }`
 
+// ─── Sitemap queries (lightweight — slug + dates only) ──────────────────────
+
+export const SITEMAP_POSTS_QUERY = groq`*[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
+  "slug": slug.current,
+  publishedAt,
+  _updatedAt
+}`
+
+export const SITEMAP_CATEGORIES_QUERY = groq`*[_type == "category" && defined(slug.current)] {
+  "slug": slug.current,
+  _updatedAt
+}`
+
+export const SITEMAP_AUTHORS_QUERY = groq`*[_type == "author" && defined(slug.current)] {
+  "slug": slug.current,
+  _updatedAt
+}`

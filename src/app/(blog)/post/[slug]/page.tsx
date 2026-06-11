@@ -3,12 +3,23 @@ import { PortableText } from '@portabletext/react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { client } from '@/sanity/client'
-import { POST_BY_SLUG_QUERY, SITE_SETTINGS_QUERY } from '@/sanity/queries'
+import { POST_BY_SLUG_QUERY, SITE_SETTINGS_QUERY, SITEMAP_POSTS_QUERY } from '@/sanity/queries'
 import { urlForImage } from '@/sanity/image'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import ShareButtons from '@/components/ShareButtons'
 import NewsletterForm from '@/components/NewsletterForm'
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
+  'https://blog.shalinaoa.in'
+
+export async function generateStaticParams() {
+  const posts = await client
+    .fetch<{ slug: string }[]>(SITEMAP_POSTS_QUERY)
+    .catch(() => [])
+  return posts.map((p) => ({ slug: p.slug }))
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -43,6 +54,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title,
     description,
     keywords,
+    alternates: {
+      canonical: `/post/${slug}`,
+    },
     openGraph: {
       title: post.seo?.metaTitle || post.title,
       description,
@@ -100,8 +114,42 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   }
   const readTime = Math.max(3, Math.ceil(bodyWordCount / 180));
 
+  // JSON-LD Article structured data
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt || post.title,
+    image: imageUrl ? [imageUrl] : undefined,
+    datePublished: post.publishedAt || undefined,
+    dateModified: post.publishedAt || undefined,
+    author: post.author
+      ? [
+          {
+            '@type': 'Person',
+            name: post.author.name,
+            url: `${SITE_URL}/author/${post.author.slug?.current || ''}`,
+          },
+        ]
+      : undefined,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Shalini Arora & Company',
+      url: SITE_URL,
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/post/${post.slug?.current}`,
+    },
+  };
+
   return (
     <article className="bg-gray-50 min-h-screen pb-20">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* Post Header Banner */}
       <header className="bg-white pt-28 pb-16 relative overflow-hidden border-b border-gray-200">
         <div className="absolute inset-0 opacity-5 bg-[url('https://images.pexels.com/photos/6863183/pexels-photo-6863183.jpeg?auto=compress&cs=tinysrgb&w=1920')] bg-cover bg-center z-0"></div>
