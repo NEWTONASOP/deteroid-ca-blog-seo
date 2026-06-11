@@ -33,6 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: '/',
     },
+    manifest: '/site.webmanifest',
     openGraph: {
       title,
       description,
