@@ -12,7 +12,7 @@ import NewsletterForm from '@/components/NewsletterForm'
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
-  'https://blog.sarsaroracompany.com'
+  'https://saroracompany.com'
 
 export async function generateStaticParams() {
   const posts = await client
