@@ -12,7 +12,7 @@ import NewsletterForm from '@/components/NewsletterForm'
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
-  'https://blog.shalinaoa.in'
+  'https://blog.sarsaroracompany.com'
 
 export async function generateStaticParams() {
   const posts = await client
@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = await client.fetch(POST_BY_SLUG_QUERY, { slug }).catch(() => null);
-  
+
   if (!post) {
     return {};
   }
@@ -32,12 +32,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const siteSettings = await client.fetch(SITE_SETTINGS_QUERY).catch(() => null);
   const siteName = siteSettings?.siteName || "Shalini Arora & Company";
 
-  const title = post.seo?.metaTitle 
-    ? { absolute: post.seo.metaTitle } 
+  const title = post.seo?.metaTitle
+    ? { absolute: post.seo.metaTitle }
     : post.title;
 
   const description = post.seo?.metaDescription || post.excerpt || `Read ${post.title} on ${siteName}`;
-  
+
   let ogImageUrl = null;
   if (post.seo?.shareImage) {
     ogImageUrl = urlForImage(post.seo.shareImage)?.width(1200).height(630).url();
@@ -92,7 +92,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     notFound();
   }
 
-  const date = post.publishedAt 
+  const date = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
     : 'Unknown Date';
 
@@ -125,12 +125,12 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     dateModified: post.publishedAt || undefined,
     author: post.author
       ? [
-          {
-            '@type': 'Person',
-            name: post.author.name,
-            url: `${SITE_URL}/author/${post.author.slug?.current || ''}`,
-          },
-        ]
+        {
+          '@type': 'Person',
+          name: post.author.name,
+          url: `${SITE_URL}/author/${post.author.slug?.current || ''}`,
+        },
+      ]
       : undefined,
     publisher: {
       '@type': 'Organization',
@@ -153,14 +153,14 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       {/* Post Header Banner */}
       <header className="bg-white pt-28 pb-16 relative overflow-hidden border-b border-gray-200">
         <div className="absolute inset-0 opacity-5 bg-[url('https://images.pexels.com/photos/6863183/pexels-photo-6863183.jpeg?auto=compress&cs=tinysrgb&w=1920')] bg-cover bg-center z-0"></div>
-        
+
         <div className="container mx-auto px-4 relative z-10 max-w-4xl text-center">
           {post.categories && post.categories.length > 0 && (
             <div className="flex items-center justify-center gap-2 mb-5">
               {post.categories.map((cat: any) => (
-                <Link 
-                  key={cat.title} 
-                  href={`/category/${cat.slug || ''}`} 
+                <Link
+                  key={cat.title}
+                  href={`/category/${cat.slug || ''}`}
                   className="text-[10px] font-bold px-2.5 py-0.5 bg-blue-50 border border-blue-100 text-blue-900 rounded hover:bg-blue-900 hover:text-white hover:border-blue-900 transition-colors shadow-xs"
                 >
                   {cat.title}
@@ -168,11 +168,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               ))}
             </div>
           )}
-          
+
           <h1 className="text-2xl md:text-4xl font-extrabold mb-5 leading-tight tracking-tight font-heading text-gray-900 max-w-3xl mx-auto">
             {post.title}
           </h1>
-          
+
           <div className="flex items-center justify-center text-gray-500 text-xs md:text-sm space-x-3.5">
             <div className="flex items-center">
               <div className="w-6.5 h-6.5 rounded-full bg-gray-100 mr-2 overflow-hidden relative flex items-center justify-center border border-gray-200">
@@ -207,7 +207,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
       {/* Main Content Area */}
       <div className="container mx-auto px-4 max-w-5xl -mt-8 relative z-20">
-        
+
         {/* Featured Image */}
         <div className="w-full h-56 md:h-[380px] bg-gray-100 rounded-2xl shadow-md mb-10 overflow-hidden relative border border-gray-200">
           {imageUrl ? (
@@ -238,8 +238,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 <div className="flex items-center gap-1.5 flex-wrap">
                   <span className="font-bold text-[10px] text-gray-400 mr-1 uppercase tracking-wider">Tags:</span>
                   {post.categories.map((cat: any) => (
-                    <span 
-                      key={cat.title} 
+                    <span
+                      key={cat.title}
                       className="text-xs bg-gray-50 text-gray-700 px-2.5 py-0.5 rounded border border-gray-100 font-semibold"
                     >
                       {cat.title}
@@ -247,7 +247,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                   ))}
                 </div>
               )}
-              
+
               <ShareButtons title={post.title} />
             </div>
           </div>
@@ -270,13 +270,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                       </div>
                     )}
                   </div>
-                  
+
                   <h4 className="font-bold text-blue-900 text-base hover:underline">
                     <Link href={`/author/${post.author.slug?.current || ''}`}>
                       {post.author.name}
                     </Link>
                   </h4>
-                  
+
                   {post.author.bio && (
                     <div className="text-gray-600 text-xs leading-relaxed max-w-xs mt-3.5 border-t border-gray-100 pt-3.5 flex flex-col items-center">
                       <PortableText value={post.author.bio} />
@@ -289,7 +289,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             {/* Newsletter Widget */}
             <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-6 text-white text-center border border-blue-950 shadow-md relative overflow-hidden">
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.02] pointer-events-none"></div>
-              
+
               <h3 className="font-bold text-base mb-1.5 text-white font-heading">Direct Updates</h3>
               <p className="text-xs text-blue-100/80 mb-5 leading-relaxed">Get compliance changes and advisory columns directly in your mail.</p>
               <NewsletterForm layout="stacked" />

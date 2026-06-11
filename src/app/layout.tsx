@@ -10,16 +10,16 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
-  'https://blog.shalinaoa.in'
+  'https://blog.saroracompany.com'
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await client.fetch(SITE_SETTINGS_QUERY).catch(() => null);
-  
+
   const siteName = siteSettings?.siteName || "Shalini Arora & Company";
   const title = siteSettings?.title || "Blog | Shalini Arora & Company - CA in Noida";
   const description = siteSettings?.description || "Expert financial insights, tax updates, and compliance guides from Shalini Arora & Company, Chartered Accountants in Noida.";
-  
-  const ogImageUrl = siteSettings?.defaultShareImage 
+
+  const ogImageUrl = siteSettings?.defaultShareImage
     ? urlForImage(siteSettings.defaultShareImage)?.width(1200).height(630).url()
     : null;
 
