@@ -77,7 +77,11 @@ export const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"][0] {
   noIndexAll,
   heroTitle,
   heroTitleHighlight,
-  heroSubtitle
+  heroSubtitle,
+  homeSeo,
+  aboutSeo,
+  servicesSeo,
+  contactSeo
 }`
 
 // ─── Sitemap queries (lightweight — slug + dates only) ──────────────────────

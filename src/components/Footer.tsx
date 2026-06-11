@@ -2,7 +2,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Footer() {
-  const mainSiteUrl = 'https://saroracompany.com';
   
   return (
     <footer className="bg-gradient-to-br from-blue-900 to-blue-800 text-white relative overflow-hidden">
@@ -54,34 +53,34 @@ export default function Footer() {
             <h4 className="text-base font-bold mb-6">Quick Links</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href={mainSiteUrl} className="text-blue-100/80 hover:text-white transition-colors">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href={`${mainSiteUrl}/about`} className="text-blue-100/80 hover:text-white transition-colors">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href={`${mainSiteUrl}/services`} className="text-blue-100/80 hover:text-white transition-colors">
-                  Services
-                </a>
-              </li>
-              <li>
                 <Link href="/" className="text-blue-100/80 hover:text-white transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-blue-100/80 hover:text-white transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="text-blue-100/80 hover:text-white transition-colors">
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-blue-100/80 hover:text-white transition-colors">
                   Blog
                 </Link>
               </li>
               <li>
-                <a href={`${mainSiteUrl}/#clients`} className="text-blue-100/80 hover:text-white transition-colors">
+                <Link href="/#clients" className="text-blue-100/80 hover:text-white transition-colors">
                   Our Clients
-                </a>
+                </Link>
               </li>
               <li>
-                <a href={`${mainSiteUrl}/contact`} className="text-blue-100/80 hover:text-white transition-colors">
+                <Link href="/contact" className="text-blue-100/80 hover:text-white transition-colors">
                   Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -91,29 +90,29 @@ export default function Footer() {
             <h4 className="text-base font-bold mb-6">Our Services</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href={`${mainSiteUrl}/services/startup`} className="text-blue-100/80 hover:text-white transition-colors">
+                <Link href="/services/startup" className="text-blue-100/80 hover:text-white transition-colors">
                   Startup Services
-                </a>
+                </Link>
               </li>
               <li>
-                <a href={`${mainSiteUrl}/services/taxation`} className="text-blue-100/80 hover:text-white transition-colors">
+                <Link href="/services/taxation" className="text-blue-100/80 hover:text-white transition-colors">
                   Taxation Services
-                </a>
+                </Link>
               </li>
               <li>
-                <a href={`${mainSiteUrl}/services/gst`} className="text-blue-100/80 hover:text-white transition-colors">
+                <Link href="/services/gst" className="text-blue-100/80 hover:text-white transition-colors">
                   GST Services
-                </a>
+                </Link>
               </li>
               <li>
-                <a href={`${mainSiteUrl}/services/audit`} className="text-blue-100/80 hover:text-white transition-colors">
+                <Link href="/services/audit" className="text-blue-100/80 hover:text-white transition-colors">
                   Audit & Compliance
-                </a>
+                </Link>
               </li>
               <li>
-                <a href={`${mainSiteUrl}/services/nri-taxation`} className="text-blue-100/80 hover:text-white transition-colors">
+                <Link href="/services/nri" className="text-blue-100/80 hover:text-white transition-colors">
                   NRI Taxation
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

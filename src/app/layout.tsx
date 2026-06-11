@@ -10,7 +10,7 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
-  'https://blog.saroracompany.com'
+  'https://saroracompany.com'
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await client.fetch(SITE_SETTINGS_QUERY).catch(() => null);

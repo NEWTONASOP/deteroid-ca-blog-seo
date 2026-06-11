@@ -5,7 +5,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Header() {
-  const mainSiteUrl = 'https://saroracompany.com';
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -25,50 +24,50 @@ export default function Header() {
         
         {/* Navigation Links - Desktop */}
         <nav className="hidden md:flex items-center space-x-8">
-          <a 
-            href={mainSiteUrl}
+          <Link 
+            href="/"
             className="text-sm font-medium text-gray-700 hover:text-blue-900 transition-colors"
           >
             Home
-          </a>
-          <a 
-            href={`${mainSiteUrl}/about`}
+          </Link>
+          <Link 
+            href="/about"
             className="text-sm font-medium text-gray-700 hover:text-blue-900 transition-colors"
           >
             About Us
-          </a>
-          <a 
-            href={`${mainSiteUrl}/services`}
+          </Link>
+          <Link 
+            href="/services"
             className="text-sm font-medium text-gray-700 hover:text-blue-900 transition-colors"
           >
             Services
-          </a>
+          </Link>
           <Link 
-            href="/"
-            className="text-sm font-medium text-blue-900 transition-colors"
+            href="/blog"
+            className="text-sm font-medium text-gray-700 hover:text-blue-900 transition-colors"
           >
             Blog
           </Link>
-          <a 
-            href={`${mainSiteUrl}/#clients`}
+          <Link 
+            href="/#clients"
             className="text-sm font-medium text-gray-700 hover:text-blue-900 transition-colors"
           >
             Our Clients
-          </a>
-          <a 
-            href={`${mainSiteUrl}/contact`}
+          </Link>
+          <Link 
+            href="/contact"
             className="text-sm font-medium text-gray-700 hover:text-blue-900 transition-colors"
           >
             Contact Us
-          </a>
+          </Link>
           
           {/* Book Appointment Button */}
-          <a 
-            href={`${mainSiteUrl}/contact`}
+          <Link 
+            href="/contact"
             className="px-5 py-2.5 bg-blue-900 hover:bg-blue-800 text-white rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg border-2 border-blue-900 hover:border-blue-800"
           >
             Book Appointment
-          </a>
+          </Link>
         </nav>
         
         {/* Mobile menu button */}
@@ -95,56 +94,56 @@ export default function Header() {
       {isOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white shadow-lg animate-in fade-in slide-in-from-top-4 duration-200">
           <div className="px-4 pt-3 pb-6 space-y-3 flex flex-col">
-            <a 
-              href={mainSiteUrl}
+            <Link 
+              href="/"
               onClick={() => setIsOpen(false)}
               className="text-sm font-medium text-gray-700 hover:text-blue-900 py-2 border-b border-gray-50 transition-colors"
             >
               Home
-            </a>
-            <a 
-              href={`${mainSiteUrl}/about`}
+            </Link>
+            <Link 
+              href="/about"
               onClick={() => setIsOpen(false)}
               className="text-sm font-medium text-gray-700 hover:text-blue-900 py-2 border-b border-gray-50 transition-colors"
             >
               About Us
-            </a>
-            <a 
-              href={`${mainSiteUrl}/services`}
+            </Link>
+            <Link 
+              href="/services"
               onClick={() => setIsOpen(false)}
               className="text-sm font-medium text-gray-700 hover:text-blue-900 py-2 border-b border-gray-50 transition-colors"
             >
               Services
-            </a>
+            </Link>
             <Link 
-              href="/"
+              href="/blog"
               onClick={() => setIsOpen(false)}
-              className="text-sm font-medium text-blue-900 py-2 border-b border-gray-50 transition-colors"
+              className="text-sm font-medium text-gray-700 hover:text-blue-900 py-2 border-b border-gray-50 transition-colors"
             >
               Blog
             </Link>
-            <a 
-              href={`${mainSiteUrl}/#clients`}
+            <Link 
+              href="/#clients"
               onClick={() => setIsOpen(false)}
               className="text-sm font-medium text-gray-700 hover:text-blue-900 py-2 border-b border-gray-50 transition-colors"
             >
               Our Clients
-            </a>
-            <a 
-              href={`${mainSiteUrl}/contact`}
+            </Link>
+            <Link 
+              href="/contact"
               onClick={() => setIsOpen(false)}
               className="text-sm font-medium text-gray-700 hover:text-blue-900 py-2 border-b border-gray-50 transition-colors"
             >
               Contact Us
-            </a>
+            </Link>
             
-            <a 
-              href={`${mainSiteUrl}/contact`}
+            <Link 
+              href="/contact"
               onClick={() => setIsOpen(false)}
               className="mt-2 text-center px-5 py-3 bg-blue-900 hover:bg-blue-800 text-white rounded-lg text-sm font-semibold transition-all duration-300 shadow-md"
             >
               Book Appointment
-            </a>
+            </Link>
           </div>
         </div>
       )}
