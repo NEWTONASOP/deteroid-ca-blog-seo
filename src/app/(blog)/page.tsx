@@ -30,7 +30,9 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return {
-    title,
+    title: {
+      absolute: title
+    },
     description,
     keywords,
     alternates: { canonical: SITE_URL },

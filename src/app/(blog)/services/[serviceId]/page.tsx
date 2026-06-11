@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: { params: Promise<{ serviceId
     return {}
   }
   return {
-    title: `${service.title} | Shalini Arora & Company`,
+    title: service.title,
     description: `${service.description}. ${service.details}`,
     alternates: {
       canonical: `${SITE_URL}/services/${serviceId}`,
