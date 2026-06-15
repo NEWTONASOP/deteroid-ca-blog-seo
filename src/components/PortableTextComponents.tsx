@@ -2,6 +2,14 @@ import { PortableTextComponents } from '@portabletext/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { urlForImage } from '@/sanity/image'
+import { slugify } from '@/utils/slugify'
+
+const getHeadingText = (value: any): string => {
+  if (!value || !value.children) return '';
+  return value.children
+    .map((child: any) => child.text || '')
+    .join('');
+};
 
 export const portableTextComponents: PortableTextComponents = {
   types: {
@@ -38,9 +46,30 @@ export const portableTextComponents: PortableTextComponents = {
   },
   block: {
     normal: ({ children }) => <p className="mb-5 text-gray-700 leading-relaxed text-[15px] md:text-[16px]">{children}</p>,
-    h2: ({ children }) => <h2 className="text-xl md:text-2xl font-bold mt-10 mb-4 text-blue-900 relative pb-2 border-b border-gray-100">{children}</h2>,
-    h3: ({ children }) => <h3 className="text-lg md:text-xl font-bold mt-8 mb-3.5 text-blue-900">{children}</h3>,
-    h4: ({ children }) => <h4 className="text-base md:text-lg font-bold mt-6 mb-3 text-gray-800">{children}</h4>,
+    h2: ({ children, value }) => {
+      const id = slugify(getHeadingText(value));
+      return (
+        <h2 id={id} className="text-xl md:text-2xl font-bold mt-10 mb-4 text-blue-900 relative pb-2 border-b border-gray-100 scroll-mt-24">
+          {children}
+        </h2>
+      );
+    },
+    h3: ({ children, value }) => {
+      const id = slugify(getHeadingText(value));
+      return (
+        <h3 id={id} className="text-lg md:text-xl font-bold mt-8 mb-3.5 text-blue-900 scroll-mt-24">
+          {children}
+        </h3>
+      );
+    },
+    h4: ({ children, value }) => {
+      const id = slugify(getHeadingText(value));
+      return (
+        <h4 id={id} className="text-base md:text-lg font-bold mt-6 mb-3 text-gray-800 scroll-mt-24">
+          {children}
+        </h4>
+      );
+    },
     blockquote: ({ children }) => (
       <blockquote className="border-l-4 border-blue-900 pl-5 py-3 my-6 italic text-gray-700 bg-blue-50/25 rounded-r border-y border-r border-gray-100 shadow-xs relative">
         <span className="absolute left-2 top-0.5 text-2xl text-blue-900/10 font-serif leading-none select-none">&#8220;</span>

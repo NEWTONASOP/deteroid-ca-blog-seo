@@ -9,6 +9,8 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import ShareButtons from '@/components/ShareButtons'
 import NewsletterForm from '@/components/NewsletterForm'
+import { slugify } from '@/utils/slugify'
+import TableOfContents from '@/components/TableOfContents'
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
@@ -84,6 +86,33 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export const revalidate = 60
 
+interface HeadingItem {
+  id: string;
+  text: string;
+  level: number;
+}
+
+function extractHeadings(body: any[]): HeadingItem[] {
+  if (!body || !Array.isArray(body)) return [];
+  
+  const headings: HeadingItem[] = [];
+  
+  body.forEach((block: any) => {
+    if (block._type === 'block' && ['h2', 'h3', 'h4'].includes(block.style)) {
+      const text = block.children
+        ? block.children.map((c: any) => c.text || '').join('')
+        : '';
+      const level = parseInt(block.style.replace('h', '')) || 2;
+      const id = slugify(text);
+      if (text) {
+        headings.push({ id, text, level });
+      }
+    }
+  });
+  
+  return headings;
+}
+
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = await client.fetch(POST_BY_SLUG_QUERY, { slug });
@@ -91,6 +120,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   if (!post) {
     notFound();
   }
+
+  const headings = post.body ? extractHeadings(post.body) : [];
+  const hasHeadings = headings.length > 0;
 
   const date = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
@@ -206,7 +238,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       </header>
 
       {/* Main Content Area */}
-      <div className="container mx-auto px-4 max-w-5xl -mt-8 relative z-20">
+      <div className={`container mx-auto px-4 -mt-8 relative z-20 ${hasHeadings ? 'max-w-7xl' : 'max-w-5xl'}`}>
 
         {/* Featured Image */}
         <div className="w-full h-56 md:h-[380px] bg-gray-100 rounded-2xl shadow-md mb-10 overflow-hidden relative border border-gray-200">
@@ -222,8 +254,15 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Table of Contents (Left Column) */}
+          {hasHeadings && (
+            <aside className="lg:col-span-3 lg:block hidden">
+              <TableOfContents headings={headings} />
+            </aside>
+          )}
+
           {/* Article Body */}
-          <div className="lg:col-span-8 bg-white rounded-2xl p-6 md:p-9 border border-gray-200 shadow-md">
+          <div className={`${hasHeadings ? 'lg:col-span-6' : 'lg:col-span-8'} bg-white rounded-2xl p-6 md:p-9 border border-gray-200 shadow-md`}>
             <div className="max-w-none text-gray-800">
               {post.body ? (
                 <PortableText value={post.body} components={portableTextComponents} />
@@ -253,7 +292,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </div>
 
           {/* Sidebar */}
-          <aside className="lg:col-span-4 space-y-6">
+          <aside className={`${hasHeadings ? 'lg:col-span-3' : 'lg:col-span-4'} space-y-6`}>
             {/* Author Widget */}
             {post.author && (
               <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-md text-center">
