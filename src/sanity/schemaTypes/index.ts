@@ -11,3 +11,5 @@ export const schema: { types: SchemaTypeDefinition[] } = {
   types: [blockContentType, categoryType, postType, authorType, seoFields, siteSettings],
 }
 
+
+

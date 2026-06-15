@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
+import BotpressChat from "@/components/BotpressChat";
 import { client } from "@/sanity/client";
 import { SITE_SETTINGS_QUERY } from "@/sanity/queries";
 import { urlForImage } from "@/sanity/image";
@@ -68,6 +69,7 @@ export default function RootLayout({
         className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col bg-white`}
       >
         {children}
+        <BotpressChat />
       </body>
     </html>
   );
