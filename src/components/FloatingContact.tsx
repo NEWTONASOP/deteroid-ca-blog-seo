@@ -17,9 +17,9 @@ export default function FloatingContact() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 flex flex-col items-end gap-4 z-50">
+    <div className="fixed bottom-6 left-6 flex flex-col items-start gap-4 z-50">
       {showLabels && (
-        <div className="flex flex-col items-end gap-5 mb-1 mr-1">
+        <div className="flex flex-col items-start gap-5 mb-1 ml-1">
           <div className="bg-white rounded-lg shadow-lg px-3 py-1.5 border border-gray-100 animate-in fade-in slide-in-from-bottom-2 duration-200">
             <p className="text-xs font-bold text-gray-700">Chat with us</p>
           </div>
