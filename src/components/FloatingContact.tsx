@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { sendGAEvent } from '@next/third-parties/google'
 
 export default function FloatingContact() {
   const whatsappNumber = '919873709194'
@@ -8,11 +9,13 @@ export default function FloatingContact() {
   const [showLabels, setShowLabels] = useState(false)
 
   const handleWhatsAppClick = () => {
+    sendGAEvent('event', 'whatsapp_click', { event_category: 'contact' })
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(prefilledText)}`
     window.open(url, '_blank', 'noopener,noreferrer')
   }
 
   const handlePhoneClick = () => {
+    sendGAEvent('event', 'call_click', { event_category: 'contact' })
     window.location.href = `tel:${whatsappNumber}`
   }
 

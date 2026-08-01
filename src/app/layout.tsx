@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import BotpressChat from "@/components/BotpressChat";
 import { client } from "@/sanity/client";
 import { SITE_SETTINGS_QUERY } from "@/sanity/queries";
 import { urlForImage } from "@/sanity/image";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-BF8S853W0B";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
@@ -71,6 +74,7 @@ export default function RootLayout({
         {children}
         <BotpressChat />
       </body>
+      <GoogleAnalytics gaId={GA_ID} />
     </html>
   );
 }
